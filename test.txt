@@ -1,0 +1,24 @@
+            
+    def get_resized_img_and_edges(self, name):
+        img = cv2.imread(f"res/{name}.jpg")
+        height, width = img.shape[:2]
+        new_size = (width*2, height*2)
+        resized_img = cv2.resize(img, new_size, interpolation=cv2.INTER_LINEAR)
+        gray = cv2.cvtColor(resized_img, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(gray, (7, 7), 3)
+        edges = cv2.Canny(blur, 100, 200, apertureSize=3)
+        return resized_img, edges[self.cropped_y1*2:self.cropped_y2*2, self.cropped_x1*2:self.cropped_x2*2]
+
+    def ppppp(self):
+        for i in range(1, 7):
+            resized_img, edges = self.get_resized_img_and_edges(i)
+            circles = cv2.HoughCircles(edges, cv2.HOUGH_GRADIENT, dp=1, minDist=100, param1=1.8, param2=12, minRadius=10, maxRadius=15)
+            if circles is not None:
+                circles = circles[0].astype(np.uint32)
+                for circle in circles:
+                    x_cent = circle[0]
+                    y_cent = circle[1]
+                    cv2.circle(resized_img, (self.cropped_x1*2 + x_cent, self.cropped_y1*2 + y_cent), circle[2], (0, 0, 255), 1)
+
+            cv2.imshow("img", resized_img)
+            cv2.waitKey(0)
