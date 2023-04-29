@@ -29,7 +29,6 @@ cv2.destroyAllWindows()
 
 
 
-# بارگیری تصویر
 # img = cv2.imread('res/1.jpg')
 
 # lower_range = np.array([0, 0, 0])
