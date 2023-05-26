@@ -61,6 +61,9 @@ Goal detected in frame name: 6
 or
 No Goal detected.
 ```
+## Input Sample
+
+![sample](https://github.com/sajiniho07/FootballGoalDetector/blob/master/res/6.jpg)
 
 ## License ##
 
